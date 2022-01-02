@@ -62,23 +62,17 @@ function orderByYear(movies) {
 }
 
 // Exercise 6: Calculate the average of the movies in a category
-function moviesAverageByCategory() {
+function moviesAverageByCategory(genre) {
+  const peliculasPorCategoria = movies.filter(movie => movie.genre.includes(genre))
 
-  /*
-  const allgenres = movies.flatMap(movie => movie.genre)
-    
-    .filter((movie,genre,movies) =>{
-        return (movies.indexOf(movie) === genre);
-    })
-    console.log('Categorias disponibles ->', allgenres);
+    console.log('Filtradas por categoria ->', peliculasPorCategoria);
 
-    const filmsBygenre = movies.map(movie => movie.title)
-    const filmsFIlteredByGenre = filmsBygenre.filter(movie => movie.genre === genre);
-    console.log('Movies by genre ->', filmsFIlteredByGenre);
+    const totalPeliculasPorCategoria = peliculasPorCategoria.reduce((counter, item) => counter + item.score, 0);
+    //console.log('Total Peliculas por categoria->',totalPeliculasPorCategoria);
+    const mediaPorCategoria = Number((totalPeliculasPorCategoria / peliculasPorCategoria.length).toFixed(2))
+    console.log('Media por categoria ->', mediaPorCategoria);
 
-    return filmsFIlteredByGenre;
-
-    */
+    return mediaPorCategoria;
 
 }
 
