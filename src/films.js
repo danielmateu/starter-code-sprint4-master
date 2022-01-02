@@ -100,8 +100,22 @@ return minutes;
 }
 
 // Exercise 8: Get the best film of a year
-function bestFilmOfYear() {
-  
+function bestFilmOfYear(year) {
+  const filmsOfYear = movies.filter(moviesOfYear => moviesOfYear.year === year);
+
+  console.log('Peliculas por año ->', filmsOfYear);
+  const sortFilm = filmsOfYear.filter(movie => movie.score).sort((a, b)=>{
+      if(a.score < b.score){
+          return 1
+      }if(a.score > b.score){
+          return -1;
+      }else return 0;
+  })
+  console.log('Peliculas ordenadas por puntuación ->', sortFilm);
+
+  const bestFilm = sortFilm[0]
+  console.log('Mejor Pelicula ->', bestFilm);
+  return bestFilm;
 }
 
 
