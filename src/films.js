@@ -15,21 +15,21 @@ function getMoviesFromDirector(movies, director) {
 function moviesAverageOfDirector(movies, director) {
   let totalFromDirector = movies.filter(movie => movie.director === director).reduce((counter, item) => counter + item.score, 0);
 
-    let moviesFromDirector = movies.filter(movie => movie.director === director);
-    return Number((totalFromDirector / moviesFromDirector.length).toFixed(2));
+  let moviesFromDirector = movies.filter(movie => movie.director === director);
+  return Number((totalFromDirector / moviesFromDirector.length).toFixed(2));
 
-    
+
 }
 
 // Exercise 4:  Alphabetic order by title 
 function orderAlphabetically(movies) {
   let peliculas = movies.map(movie => movie)
   let peliculasOrdenadas = peliculas.sort((a, b) => {
-      if (a.title > b.title) {
-          return 1;
-      } else if (a.title < b.title) {
-          return -1;
-      } else return 0;
+    if (a.title > b.title) {
+      return 1;
+    } else if (a.title < b.title) {
+      return -1;
+    } else return 0;
   }).map(movie => movie.title).slice(0, 20);
 
   console.log('Exercice 04 Peliculas Ordenads Alfabeticamente ->', peliculasOrdenadas);
@@ -41,84 +41,75 @@ function orderAlphabetically(movies) {
 function orderByYear(movies) {
 
   let peliculas = movies.map(movie => movie)
-    let ordenadasPorYear = peliculas.sort((a, b) => {
-        if (a.year > b.year) {
-            return 1;
-        } else if (a.year < b.year) {
-            return -1
-        } else {
-            if (a.title > b.title) {
-                return 1;
-            } else if (a.title < b.title) {
-                return -1
-            } else return 0;
-        }
-    });
+  let ordenadasPorYear = peliculas.sort((a, b) => {
+    if (a.year > b.year) {
+      return 1;
+    } else if (a.year < b.year) {
+      return -1
+    } else {
+      if (a.title > b.title) {
+        return 1;
+      } else if (a.title < b.title) {
+        return -1
+      } else return 0;
+    }
+  });
 
-    console.log('Exercice 05 Peliculas Ordenads por año Ascendente->', ordenadasPorYear);
+  console.log('Exercice 05 Peliculas Ordenads por año Ascendente->', ordenadasPorYear);
 
-    return ordenadasPorYear;
+  return ordenadasPorYear;
 
 }
 
 // Exercise 6: Calculate the average of the movies in a category
-function moviesAverageByCategory(genre) {
+function moviesAverageByCategory(movies, genre) {
   const peliculasPorCategoria = movies.filter(movie => movie.genre.includes(genre))
 
-    console.log('Filtradas por categoria ->', peliculasPorCategoria);
+  console.log('Filtradas por categoria ->', peliculasPorCategoria);
 
-    const totalPeliculasPorCategoria = peliculasPorCategoria.reduce((counter, item) => counter + item.score, 0);
-    //console.log('Total Peliculas por categoria->',totalPeliculasPorCategoria);
-    const mediaPorCategoria = Number((totalPeliculasPorCategoria / peliculasPorCategoria.length).toFixed(2))
-    console.log('Media por categoria ->', mediaPorCategoria);
+  const totalPeliculasPorCategoria = peliculasPorCategoria.reduce((counter, item) => counter + item.score, 0);
+  //console.log('Total Peliculas por categoria->',totalPeliculasPorCategoria);
+  const mediaPorCategoria = Number((totalPeliculasPorCategoria / peliculasPorCategoria.length).toFixed(2))
+  console.log('Media por categoria ->', mediaPorCategoria);
 
-    return mediaPorCategoria;
+  return mediaPorCategoria;
 
 }
 
 // Exercise 7: Modify the duration of movies to minutes
 function hoursToMinutes(movies) {
   const hoursToMinutes = movies.map((movie) => {
-    const movieWithHoursToMinutes = {...movie};
+    const movieWithHoursToMinutes = {
+      ...movie
+    };
     movieWithHoursToMinutes.duration = convertDurationToNumberOfMinutes(movie.duration);
     return movieWithHoursToMinutes;
-});
-console.log('Ex 07 ->',hoursToMinutes);
-return hoursToMinutes;
+  });
+  console.log('Ex 07 ->', hoursToMinutes);
+  return hoursToMinutes;
 
 }
 
 const convertDurationToNumberOfMinutes = (duration) => {
-const minutes = duration.split(' ').reduce((accumulator, value) => {
+  const minutes = duration.split(' ').reduce((accumulator, value) => {
     let number = parseInt(value);
-    if (value.includes('h')){
-       number *= 60; 
-    } 
+    if (value.includes('h')) {
+      number *= 60;
+    }
     return accumulator + number;
-}, 0);
-return minutes;
+  }, 0);
+  return minutes;
 }
 
 // Exercise 8: Get the best film of a year
-function bestFilmOfYear(year) {
-  const filmsOfYear = movies.filter(moviesOfYear => moviesOfYear.year === year);
+function bestFilmOfYear(movies, year) {
+  const filmOfYear = movies
+    .filter(moviesOfYear => moviesOfYear.year === year)
+    .find(moviesOfYear => moviesOfYear.score <= 10);
 
-  console.log('Peliculas por año ->', filmsOfYear);
-  const sortFilm = filmsOfYear.filter(movie => movie.score).sort((a, b)=>{
-      if(a.score < b.score){
-          return 1
-      }if(a.score > b.score){
-          return -1;
-      }else return 0;
-  })
-  console.log('Peliculas ordenadas por puntuación ->', sortFilm);
-
-  const bestFilm = sortFilm[0]
-  console.log('Mejor Pelicula ->', bestFilm);
-  return bestFilm;
+  console.log('Mejor película del año ->', [filmOfYear]);
+  return [filmOfYear];
 }
-
-
 
 // The following is required to make unit tests work.
 /* Environment setup. Do not modify the below code. */
